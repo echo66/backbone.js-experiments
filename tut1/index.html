@@ -10,9 +10,31 @@
 <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
 <script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
 <script>
+	function print(s) {
+		console.log("");
+		console.log(s);
+		console.log("");
+	}
 	var Todo = Backbone.Model.extend({
 		initialize: function() {
-			console.log("This model has been initialized.");
+			print(["-------INITIALIZE TODO MODEL----\n",
+			 	   "A Todo model has been initialized.\n",
+				   "--------------------------------\n"].join(""));
+			this.on("change", function(a) {
+				print(["-------------TODO CHANGE------------\n",
+					   "Something has changed in some model.\n",
+					   "------------------------------------\n"].join(""));
+			});
+			this.on("change:title", function(a) {
+				print(["-------TODO CHANGE:TITLE--------------\n",
+				 	   "The title of a Todo model has changed.\n",
+					   "--------------------------------------\n"].join(""));
+			});
+			this.on("change:completed", function(a) {
+				print(["-------------TODO CHANGE:COMPLETED--------------\n",
+					   "The completed field of a Todo model has changed.\n",
+					   "------------------------------------------------\n"].join(""));
+			});
 		},
 		defaults: {
 			title: "",
@@ -42,6 +64,23 @@
 		title: "título 3",
 		completed: false
 	});
+	console.log(JSON.stringify(todo3));
+	todo3.set({
+		completed: true
+	});
+	console.log(JSON.stringify(todo3));
+
+
+
+	var Person = new Backbone.Model({name: "Bruno"});
+
+	Person.validate = function(attrs) {
+		if (!attrs.name) {
+			return "I need your name.";
+		}
+	}
+
+	Person.unset("name");
 </script>
 </body>
 </html>
