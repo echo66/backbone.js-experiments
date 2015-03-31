@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+<script src="http://documentcloud.github.com/backbone/backbone-min.js"></script>
+<script>
+	var Todo = Backbone.Model.extend({
+		initialize: function() {
+			console.log("This model has been initialized.");
+		},
+		defaults: {
+			title: "",
+			completed: false
+		}
+	});
+
+	var todo1 = new Todo();
+	console.log(JSON.stringify(todo1));
+	console.log(todo1.get("title"));
+	console.log(todo1.get("completed"));
+	var todo1Attributes = todo1.toJSON();
+	console.log(todo1Attributes);
+	todo1.set("title", "novo título 1");
+	console.log(JSON.stringify(todo1));
+
+	var todo2 = new Todo({
+		title: "título 2",
+		completed: true
+	});
+	console.log(JSON.stringify(todo2));
+	console.log(todo2.get("title"));
+	console.log(todo2.get("completed"));
+	console.log(todo2.toJSON());
+
+	var todo3 = new Todo({
+		title: "título 3",
+		completed: false
+	});
+</script>
+</body>
+</html>
